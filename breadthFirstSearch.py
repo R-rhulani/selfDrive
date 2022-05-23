@@ -200,6 +200,7 @@ def drive(map, path=""):
                 print("+ ", end="")
             else:
                 print(col + " ", end="")
+    print()
     return
 
 def drive2(map, path, varj, vari):
@@ -228,49 +229,6 @@ def drive2(map, path, varj, vari):
             j = j + 1
         position.add((j, i))
 
-        # if (map[j][i] == "O"):
-
-        #     var1 = j
-        #     var2 = i
-        #     print("Lalalalalala")
-        #     nodes = queue.Queue()
-        #     nodes.put("")
-        #     route = ""
-        #     map  = drawMap()
-        #     del map[0][1]
-        #     map[j].insert(i, "A")
-        #     map[x_coordinate].insert(y_coordinate , "B")
-        #     del map[x_coordinate][y_coordinate + 1]
-        #     insertObstacle(map, c, d)
-        #     insertObstacle(map, e, f)
-        #     insertObstacle(map, g, h)
-        #     insertObstacle(map, y, z)
-        #     insertObstacle(map, k, l)
-            # insertBlocker()
-            # while not findDestination(map, route):
-            # while not  reroute(map,route, var1, var2):
-            #     print("Rerouting",count)
-            #     route = nodes.get()
-            #     print(route)
-            #     # printMap(map,route)
-            #     # printMap(map, route)
-            #     # time.sleep(1)
-            #     for j in ["W", "E", "N", "S"]:
-            #         put = route + j
-            #         if checkMoveValidity2(map, put, var1, var2):
-            #             nodes.put(put)
-            #     count = count + 1
-            #     position = currPosition(route)
-            #     print(position)
-
-
-        # c = random.randint(0,15)
-        # ctemp = map[3][c]
-
-        # if (count == 3 ):
-        # insertDog(map, c)
-        # sensor(map, position)
-
         print("\n\n\n")
         printMap(map,position)
         print("\n")
@@ -287,7 +245,7 @@ def drive2(map, path, varj, vari):
     #             print("+ ", end="")
     #         else:
     #             print(col + " ", end="")
-    #     print()
+    print()
     sys.exit()
 
 
@@ -319,7 +277,6 @@ def reroute(map, directions, varj, vari):
         print("The directions from A to B are: " + directions)
         drive2(map, directions, varj, vari)
         return True
-
     return False
 
 
@@ -408,7 +365,7 @@ def findDestination(map, directions):
         print("The directions from A to B are: " + directions)
         drive(map, directions)
         return True
-
+    print()
     return False
 
 run = 'Y'
@@ -441,17 +398,19 @@ while not (run == 'N' ):
     insertObstacle(map, g, h)
     insertObstacle(map, y, z)
     insertObstacle(map, k, l)
+    
     while not findDestination(map, route):
         
-            print("Routing", count)
+        print("Routing", count)
 
-            route = nodes.get()
-            print(route)
+        route = nodes.get()
+        print(route)
 
-            for jj in ["W", "E", "N", "S"]:
-                put = route + jj
-                if checkMoveValidity(map, put):
-                    nodes.put(put)
-            count = count + 1
+        for jj in ["W", "E", "N", "S"]:
+            put = route + jj
+            if checkMoveValidity(map, put):
+                nodes.put(put)
+        count = count + 1
+        print()
         
     run = input("Do you want to travel some more? Y/N")
