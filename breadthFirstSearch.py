@@ -45,9 +45,9 @@ def drawMap():
     map.append(["#"," ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", "#"])
     map.append(["#","#", "#", " ", "#", "#", "#", "#", "#"," ", "#", " ", "#", "#", "#", "#", "#"])
     map.append(["#"," ", "#", " ", " ", " ", " ", " ", " "," ", "#", " ", " ", " ", " ", " ", "#"])
-    map.append(["#"," ", "#", " ", "#", "#", "#", "#", "#"," ", "#", " ", "#", "#", "#", "#", "#"])
-    map.append(["#"," ", "#", " ", "#", " ", " ", " ", " "," ", "#", " ", " ", " ", " ", " ", "#"])
-    map.append(["#"," ", "#", " ", "#", "#", "#", " ", "#","#", "#", "#", "#", "#", "#", "#", "#"])
+    map.append(["#"," ", " ", " ", "#", "#", "#", "#", "#"," ", "#", " ", "#", "#", "#", "#", "#"])
+    map.append(["#"," ", "#", " ", " ", " ", " ", " ", " "," ", "#", " ", " ", " ", " ", " ", "#"])
+    map.append(["#"," ", "#", " ", "#", "#", "#", " ", "#","#", "#", " ", "#", "#", " ", "#", "#"])
     map.append(["#"," ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", "#"])
     map.append(["#","#", "#", "#", "#", "#", "#", "#", "#","#", "#", "#", "#", "#", "#", "#", "#"])
 
@@ -77,7 +77,7 @@ def insertDog (map, c):
     return map
 
 def insertObstacle(map, c, d):
-    map[d].insert(c, "D")
+    map[d].insert(c, "O")
     del map[d][c + 1]
 
     return map
@@ -130,16 +130,15 @@ def drive(map, path=""):
             j = j + 1
         position.add((j, i))
 
-        if (map[j][i] == "D"):
+        if (map[j][i] == "O"):
             print("Lalalalalala")
             nodes = queue.Queue()
             nodes.put("")
             route = ""
             map  = drawMap()
-            map[j].insert(i, "D")
+
             map[x_coordinate].insert(y_coordinate , "B")
             del map[x_coordinate][y_coordinate + 1]
-            insertObstacle(map, c, d)
             insertObstacle(map, c, d)
             insertObstacle(map, e, f)
             insertObstacle(map, g, h)
@@ -148,7 +147,7 @@ def drive(map, path=""):
             # insertBlocker()
             # while not findDestination(map, route):
             while not  reroute(map,route):
-                print(count)
+                print("Rerouting",count)
                 route = nodes.get()
                 print(route)
                 # printMap(map,route)
@@ -267,7 +266,7 @@ def checkMoveValidity2(map, directions):
 
         if not(0 <= i < len(map[0]) and 0 <= j < len(map)):
             return False
-        elif (map[j][i] == "D" or map[j][i] == "#"):
+        elif (map[j][i] == "O" or map[j][i] == "#"):
             return False
 
     return True    
@@ -324,15 +323,14 @@ k = random.randint(0,16)
 l = random.randint(0,8)
 
 insertObstacle(map, c, d)
-insertObstacle(map, c, d)
 insertObstacle(map, e, f)
 insertObstacle(map, g, h)
 insertObstacle(map, i, j)
 insertObstacle(map, k, l)
-
 while not findDestination(map, route):
+    
+    print("Routing", count)
 
-    print(count)
     route = nodes.get()
     print(route)
 
