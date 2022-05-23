@@ -194,13 +194,13 @@ def drive(map, path=""):
         # map[3].insert(c, ctemp)
         # del map[3][c + 1]
 
-    for j, row in enumerate(map):
-        for i, col in enumerate(row):
-            if (j, i) in position:
-                print("+ ", end="")
-            else:
-                print(col + " ", end="")
-    print()
+    # for j, row in enumerate(map):
+    #     for i, col in enumerate(row):
+    #         if (j, i) in position:
+    #             print("+ ", end="")
+    #         else:
+    #             print(col + " ", end="")
+    print("Arrived at destination, Goodbye!")
     return
 
 def drive2(map, path, varj, vari):
@@ -245,7 +245,7 @@ def drive2(map, path, varj, vari):
     #             print("+ ", end="")
     #         else:
     #             print(col + " ", end="")
-    print()
+    print("Arrived at destination, Goodbye!")
     sys.exit()
 
 
@@ -368,49 +368,46 @@ def findDestination(map, directions):
     print()
     return False
 
-run = 'Y'
-while not (run == 'N' ):
-    nodes = queue.Queue()
-    nodes.put("")
-    route = ""
-    map  = drawMap()
-    map2  = drawMap1()
-    count = 0
+nodes = queue.Queue()
+nodes.put("")
+route = ""
+map  = drawMap()
+map2  = drawMap1()
+count = 0
 
-    x_coordinate = int (input("Please enter x coordinate of destination(from 0 - 7)"))
-    y_coordinate = int (input("Please enter y coordinate of destination(from 0 - 15)"))
+x_coordinate = int (input("Please enter x coordinate of destination(from 0 - 7)"))
+y_coordinate = int (input("Please enter y coordinate of destination(from 0 - 15)"))
 
-    map[x_coordinate].insert(y_coordinate , "B")
-    del map[x_coordinate][y_coordinate + 1]
-    c = random.randint(0,16)
-    d = random.randint(0,8)
-    e = random.randint(0,16)
-    f = random.randint(0,8)
-    g = random.randint(0,16)
-    h = random.randint(0,8)
-    y = random.randint(0,16)
-    z = random.randint(0,8)
-    k = random.randint(0,16)
-    l = random.randint(0,8)
+map[x_coordinate].insert(y_coordinate , "B")
+del map[x_coordinate][y_coordinate + 1]
+c = random.randint(0,16)
+d = random.randint(0,8)
+e = random.randint(0,16)
+f = random.randint(0,8)
+g = random.randint(0,16)
+h = random.randint(0,8)
+y = random.randint(0,16)
+z = random.randint(0,8)
+k = random.randint(0,16)
+l = random.randint(0,8)
 
-    insertObstacle(map, c, d)
-    insertObstacle(map, e, f)
-    insertObstacle(map, g, h)
-    insertObstacle(map, y, z)
-    insertObstacle(map, k, l)
+insertObstacle(map, c, d)
+insertObstacle(map, e, f)
+insertObstacle(map, g, h)
+insertObstacle(map, y, z)
+insertObstacle(map, k, l)
+
+while not findDestination(map, route):
     
-    while not findDestination(map, route):
-        
-        print("Routing", count)
+    print("Routing", count)
 
-        route = nodes.get()
-        print(route)
+    route = nodes.get()
+    print(route)
 
-        for jj in ["W", "E", "N", "S"]:
-            put = route + jj
-            if checkMoveValidity(map, put):
-                nodes.put(put)
-        count = count + 1
-        print()
+    for jj in ["W", "E", "N", "S"]:
+        put = route + jj
+        if checkMoveValidity(map, put):
+            nodes.put(put)
+    count = count + 1
+    print()
         
-    run = input("Do you want to travel some more? Y/N")
