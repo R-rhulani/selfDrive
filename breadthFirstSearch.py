@@ -74,14 +74,11 @@ def sensor(map, position):
 def insertDog (map, c):
     map[1].insert(c, "D")
     del map[1][c +1]
-
     return map
 
 def insertObstacle(map, c, d):
     del map[d][c]
     map[d].insert(c, "O")
-   
-
     return map
 
 def removeDog (map, c, ctemp):
@@ -132,9 +129,9 @@ def drive(map, path=""):
             j = j + 1
 
         position.add((j, i))
-        print("map[",j,"][",i,"] Lalalalalala")
 
         if (map[j][i] == "O"):
+
             if(map[j+1][i]=="#" or map[j-1][i]=="#"):
                 i = i - 1
 
@@ -143,7 +140,6 @@ def drive(map, path=""):
 
             var1 = j
             var2 = i
-            print("Lalalalalala")
             nodes = queue.Queue()
             nodes.put("")
             route = ""
@@ -159,10 +155,9 @@ def drive(map, path=""):
             insertObstacle(map, g, h)
             insertObstacle(map, y, z)
             insertObstacle(map, k, l)
-            # insertBlocker()
-            # while not findDestination(map, route):
+
             while not  reroute(map,route, var1, var2):
-                print("Rerouting",count)
+                print("Rerouting...",count)
                 route = nodes.get()
                 print(route)
                 # printMap(map,route)
@@ -176,13 +171,8 @@ def drive(map, path=""):
                 position = currPosition(route)
                 print(position)
 
-
         c = random.randint(0,15)
         ctemp = map[3][c]
-
-        # if (count == 3 ):
-        # insertDog(map, c)
-        # sensor(map, position)
 
         print("\n\n\n")
         printMap(map,position)
@@ -190,17 +180,7 @@ def drive(map, path=""):
         time.sleep(1)
         count = count + 1
 
-        # removeDog(map, c, ctemp)
-        # map[3].insert(c, ctemp)
-        # del map[3][c + 1]
-
-    # for j, row in enumerate(map):
-    #     for i, col in enumerate(row):
-    #         if (j, i) in position:
-    #             print("+ ", end="")
-    #         else:
-    #             print(col + " ", end="")
-    print("Arrived at destination, Goodbye!")
+    print("Arrived at destination, Goodbye!\n")
     return
 
 def drive2(map, path, varj, vari):
@@ -235,17 +215,7 @@ def drive2(map, path, varj, vari):
         time.sleep(1)
         count = count + 1
 
-        # removeDog(map, c, ctemp)
-        # map[3].insert(c, ctemp)
-        # del map[3][c + 1]
-
-    # for j, row in enumerate(map):
-    #     for i, col in enumerate(row):
-    #         if (j, i) in position:
-    #             print("+ ", end="")
-    #         else:
-    #             print(col + " ", end="")
-    print("Arrived at destination, Goodbye!")
+    print("Arrived at destination, Goodbye!\n")
     sys.exit()
 
 
@@ -253,9 +223,7 @@ def reroute(map, directions, varj, vari):
     i = vari
     j = varj
     begin = i
-    print("enumerate(map[", i,"] ana j is ",j,)
     for x, position in enumerate(map[0]):
-        print(position, "ha ha ha ha check reroute")
         if position == "A":
             begin = x
     
@@ -272,7 +240,6 @@ def reroute(map, directions, varj, vari):
 
         elif direction == "S":
             j = j + 1
-    print("j = ",j," and i = ",i)
     if map[j][i] == "B":
         print("The directions from A to B are: " + directions)
         drive2(map, directions, varj, vari)
@@ -313,7 +280,6 @@ def checkMoveValidity2(map, directions,varj,vari):
     j = varj
     begin = i
     for x, position in enumerate(map[0]):
-        print(position, "ha ha ha ha check validity 2")
         if position == "A":
             begin = x
     
@@ -332,7 +298,7 @@ def checkMoveValidity2(map, directions,varj,vari):
 
         elif direction == "S":
             j = j + 1
-        print("if not(0 <= ", i,"< ",len(map[0])," and 0 <= ", j," < ",len(map ),")")
+
         if not(0 <= i < len(map[0]) and 0 <= j < len(map)):
             return False
         elif (map[j][i] == "O" or map[j][i] == "#"):
