@@ -43,13 +43,13 @@ def drawMap2():
 def drawMap():
     map = []
     map.append(["#","A", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#","#", "#", "#", "#", "#"])
-    map.append(["#"," ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", "#"])
+    map.append(["#"," ", " ", "S", " ", " ", " ", " ", " "," ", " ", "S", " ", " ", " ", " ", "#"])
     map.append(["#"," ", "#", " ", "#", "#", "#", "#", "#"," ", "#", " ", "#", "#", "#", "#", "#"])
     map.append(["#"," ", "#", " ", " ", " ", " ", " ", " "," ", "#", " ", " ", " ", " ", " ", "#"])
-    map.append(["#"," ", " ", " ", "#", "#", "#", "#", "#"," ", "#", " ", "#", "#", "#", "#", "#"])
+    map.append(["#"," ", " ", "S", "#", "#", "#", "#", "#"," ", "#", " ", "#", "#", "#", "#", "#"])
     map.append(["#"," ", "#", " ", " ", " ", " ", " ", " "," ", "#", " ", " ", " ", " ", " ", "#"])
     map.append(["#"," ", "#", " ", "#", "#", "#", " ", "#","#", "#", " ", "#", "#", " ", "#", "#"])
-    map.append(["#"," ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", "#"])
+    map.append(["#"," ", " ", "S", " ", " ", " ", " ", " "," ", " ", "S", " ", " ", " ", " ", "#"])
     map.append(["#","#", "#", "#", "#", "#", "#", "#", "#","#", "#", "#", "#", "#", "#", "#", "#"])
 
     return map
@@ -113,6 +113,7 @@ def drive(map, path=""):
     i = begin
     j = 0
     count = 0
+    sleep = 1
     position = set()
     position.add((j, i))
     for direction in path:
@@ -129,6 +130,9 @@ def drive(map, path=""):
             j = j + 1
 
         position.add((j, i))
+
+        if (map[j][i] == "S"):
+           sleep = 5
 
         if (map[j][i] == "O"):
 
@@ -177,7 +181,8 @@ def drive(map, path=""):
         print("\n\n\n")
         printMap(map,position)
         print("\n")
-        time.sleep(1)
+        time.sleep(sleep)
+        sleep = 1
         count = count + 1
 
     print("Arrived at destination, Goodbye!\n")
@@ -191,7 +196,7 @@ def drive2(map, path, varj, vari):
         print(map[j][i], "ha ha ha ha drive 2")
         if position == "O":
             begin = x
-    
+    sleep = 1
     count = 0
     position = set()
     position.add((j, i))
@@ -209,10 +214,13 @@ def drive2(map, path, varj, vari):
             j = j + 1
         position.add((j, i))
 
+        if (map[j][i] == "S"): 
+            sleep = 5
         print("\n\n\n")
         printMap(map,position)
         print("\n")
-        time.sleep(1)
+        time.sleep(sleep)
+        sleep = 1
         count = count + 1
 
     print("Arrived at destination, Goodbye!\n")
