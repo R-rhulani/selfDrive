@@ -42,7 +42,7 @@ def drawMap2():
     
 def drawMap():
     map = []
-    map.append(["#","A", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#","#", "#", "#", "#", "#"])
+    map.append(["#","#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#","#", "#", "#", "#", "#"])
     map.append(["#"," ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", "#"])
     map.append(["#"," ", "#", " ", "#", "#", "#", "#", "#"," ", "#", " ", "#", "#", "#", "#", "#"])
     map.append(["#"," ", "#", " ", " ", " ", " ", " ", " "," ", "#", " ", " ", " ", " ", " ", "#"])
@@ -58,9 +58,15 @@ def printMap(map, position):
     for j, row in enumerate(map):
         for i, col in enumerate(row):
             if (j, i) in position:
-                print("+ ", end="")
+                if not (map[j][i] == "A"):
+                    print("+ ", end="")
+                else:
+                    print("A ", end="")    
             else:
-                print(col + " ", end="")
+                if not (map[j][i] == "B"):
+                    print(col + " ", end="") 
+                else:
+                    print("B ", end="")
         print()
 
 
@@ -150,6 +156,10 @@ def drive(map, path=""):
             map[j].insert(i, "A")
             map[x_coordinate].insert(y_coordinate , "B")
             del map[x_coordinate][y_coordinate + 1]
+
+            map[x_start ].insert(y_start , "A")
+            del map[x_start][y_start + 1]
+
             insertObstacle(map, c, d)
             insertObstacle(map, e, f)
             insertObstacle(map, g, h)
@@ -160,9 +170,6 @@ def drive(map, path=""):
                 print("Rerouting...",count)
                 route = nodes.get()
                 print(route)
-                # printMap(map,route)
-                # printMap(map, route)
-                # time.sleep(1)
                 for jj in ["W", "E", "N", "S"]:
                     put = route + jj
                     if checkMoveValidity2(map, put, var1, var2):
@@ -182,6 +189,92 @@ def drive(map, path=""):
 
     print("Arrived at destination, Goodbye!\n")
     return
+
+
+
+
+def drive3(map, path, yStart, xStart):
+    i = x_start
+    j = y_start
+ 
+    for x, position in enumerate(map[0]):
+        if position == "A":
+            begin = x
+
+
+    count = 0
+    position = set()
+    position.add((j, i))
+    for direction in path:
+        if direction == "W":
+            i = i - 1
+
+        elif direction == "E":
+            i = i + 1
+
+        elif direction == "N":
+            j = j - 1
+
+        elif direction == "S":
+            j = j + 1
+
+        position.add((j, i))
+
+        if (map[j][i] == "O"):
+
+            if(map[j+1][i]=="#" or map[j-1][i]=="#"):
+                i = i - 1
+
+            if(map[j][i+1]=="#" or map[j][i-1]=="#"):
+                j = j - 1
+
+            var1 = j
+            var2 = i
+            nodes = queue.Queue()
+            nodes.put("")
+            route = ""
+            map  = drawMap()
+            # del map[0][1]
+            # del map[j][i]
+            # map[0].insert(1, "#")
+            # map[j].insert(i, "A")
+            map[x_coordinate].insert(y_coordinate , "B")
+            del map[x_coordinate][y_coordinate + 1]
+
+            map[x_start ].insert(y_start , "A")
+            del map[x_start][y_start + 1]
+
+            insertObstacle(map, c, d)
+            insertObstacle(map, e, f)
+            insertObstacle(map, g, h)
+            insertObstacle(map, y, z)
+            insertObstacle(map, k, l)
+
+            while not  reroute(map,route, yStart, xStart):
+                print("Rerouting...",count)
+                route = nodes.get()
+                print(route)
+                for jj in ["W", "E", "N", "S"]:
+                    put = route + jj
+                    if checkMoveValidity3(map, put, yStart, xStart):
+                        nodes.put(put)
+                count = count + 1
+                position = currPosition(route)
+                print(position)
+
+        c = random.randint(0,15)
+        ctemp = map[3][c]
+
+        print("\n\n\n")
+        printMap(map,position)
+        print("\n")
+        time.sleep(1)
+        count = count + 1
+    printMap(map,position)
+    print("Arrived at destination, Goodbye!\n")
+    return
+
+
 
 def drive2(map, path, varj, vari):
     i = vari
@@ -222,12 +315,11 @@ def drive2(map, path, varj, vari):
 def reroute(map, directions, varj, vari):
     i = vari
     j = varj
-    begin = i
+
     for x, position in enumerate(map[0]):
         if position == "A":
             begin = x
     
-    i = begin
     for direction in directions:
         if direction == "W":
             i = i - 1
@@ -307,6 +399,40 @@ def checkMoveValidity2(map, directions,varj,vari):
     return True    
 
 
+
+def checkMoveValidity3(map, directions,varj,vari):
+    i = vari
+    j = varj
+    begin = i
+    for x, position in enumerate(map[0]):
+        if position == "A":
+            begin = x
+    
+    i = begin 
+    j = j
+    # time.sleep(1)
+    for direction in directions:
+        if direction == "W":
+            i = i - 1
+
+        elif direction == "E":
+            i = i + 1
+
+        elif direction == "N":
+            j = j - 1
+
+        elif direction == "S":
+            j = j + 1
+
+        if not(0 <= i < len(map[0]) and 0 <= j < len(map)):
+            return False
+        elif (map[j][i] == "#"):
+            return False
+
+    return True  
+
+
+
 def findDestination(map, directions):
     for x, position in enumerate(map[0]):
         if position == "A":
@@ -334,6 +460,35 @@ def findDestination(map, directions):
     print()
     return False
 
+def findDestination2(map, directions, yStart, xStart):
+    i = x_start
+    j = y_start
+    begin = i
+
+    for x, position in enumerate(map[0]):
+        if position == "A":
+            begin = x
+
+    for direction in directions:
+        if direction == "W":
+            i = i - 1
+
+        elif direction == "E":
+            i = i + 1
+
+        elif direction == "N":
+            j = j - 1
+
+        elif direction == "S":
+            j = j + 1
+
+    if map[j][i] == "B":
+        print("The directions from A to B are: " + directions)
+        drive3(map, directions,yStart,xStart)
+        return True
+    print()
+    return False
+
 nodes = queue.Queue()
 nodes.put("")
 route = ""
@@ -341,11 +496,17 @@ map  = drawMap()
 map2  = drawMap1()
 count = 0
 
+x_start = int (input("Please enter x coordinate of start position(from 0 - 7)"))
+y_start = int (input("Please enter y coordinate of start position(from 0 - 15)"))
+
 x_coordinate = int (input("Please enter x coordinate of destination(from 0 - 7)"))
 y_coordinate = int (input("Please enter y coordinate of destination(from 0 - 15)"))
 
 map[x_coordinate].insert(y_coordinate , "B")
 del map[x_coordinate][y_coordinate + 1]
+
+map[x_start ].insert(y_start , "A")
+del map[x_start][y_start + 1]
 c = random.randint(0,16)
 d = random.randint(0,8)
 e = random.randint(0,16)
@@ -363,7 +524,21 @@ insertObstacle(map, g, h)
 insertObstacle(map, y, z)
 insertObstacle(map, k, l)
 
-while not findDestination(map, route):
+# while not findDestination(map, route):
+    
+#     print("Routing", count)
+
+#     route = nodes.get()
+#     print(route)
+
+#     for jj in ["W", "E", "N", "S"]:
+#         put = route + jj
+#         if checkMoveValidity(map, put):
+#             nodes.put(put)
+#     count = count + 1
+#     print()
+
+while not findDestination2(map, route, y_start, x_start):
     
     print("Routing", count)
 
@@ -372,7 +547,7 @@ while not findDestination(map, route):
 
     for jj in ["W", "E", "N", "S"]:
         put = route + jj
-        if checkMoveValidity(map, put):
+        if checkMoveValidity2(map, put,y_start,x_start):
             nodes.put(put)
     count = count + 1
     print()
