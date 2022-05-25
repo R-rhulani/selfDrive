@@ -165,14 +165,12 @@ def drive(map, path=""):
             while not  reroute(map,route, var1, var2):
                 print("Rerouting...",count)
                 route = nodes.get()
-                print(route)
                 for jj in ["W", "E", "N", "S"]:
                     put = route + jj
                     if checkMoveValidity2(map, put, var1, var2):
                         nodes.put(put)
                 count = count + 1
                 position = currPosition(route)
-                print(position)
 
         c = random.randint(0,15)
         ctemp = map[3][c]
@@ -274,8 +272,6 @@ def drive2(map, path, varj, vari):
     i = vari
     j = varj
     for x, position in enumerate(map[0]):
-        print("map[",j,"][",i,"]")
-        print(map[j][i], "ha ha ha ha drive 2")
         if position == "O":
             begin = x
     sleep = 1
