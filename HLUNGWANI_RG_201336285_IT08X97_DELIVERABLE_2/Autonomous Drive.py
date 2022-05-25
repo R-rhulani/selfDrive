@@ -225,13 +225,6 @@ def drive3(map, path, varj, vari):
                 j = j - 1
             if(path[count2] == "N"):
                 j = j + 1
-            # if(map[j+1][i]=="#" or map[j-1][i]=="#"):
-            #     i = i - 1
-            #     print("first ",map[j][i+2])
-
-            # if(map[j][i+1]=="#" or map[j][i-1]=="#"):
-            #     j = j - 1
-            #     print("Second ",map[j][i])
 
             var1 = j
             var2 = i
@@ -239,7 +232,6 @@ def drive3(map, path, varj, vari):
             nodes.put("")
             route = ""
             map  = drawMap()
-            # del map[xStart][yStart]
 
             del map[var1][var2]
             map[var1].insert(var2 , "A")
@@ -257,9 +249,6 @@ def drive3(map, path, varj, vari):
                 print("Rerouting...",count)
                 route = nodes.get()
                 print(route)
-                # printMap(map,route)
-                # printMap(map, route)
-                # time.sleep(1)
                 for jj in ["W", "E", "N", "S"]:
                     put = route + jj
                     if checkMoveValidity2(map, put, var1, var2):
@@ -377,10 +366,6 @@ def checkMoveValidity(map, directions):
 
 def checkMoveValidity3(map, directions, varj, vari):
 
-    # for x, position in enumerate(map[0]):
-    #     if position == "A":
-    #         begin = x
-
     i = vari
     j = varj
     for direction in directions:
@@ -446,7 +431,6 @@ def checkMoveValidity3(map, directions,varj,vari):
     
     i = begin 
     j = j
-    # time.sleep(1)
     for direction in directions:
         if direction == "W":
             i = i - 1
@@ -496,10 +480,6 @@ def findDestination(map, directions):
     return False
 
 def findDestination2(map, directions, varj, vari):
-
-    # for x, position in enumerate(map[0]):
-    #     if position == "A":
-    #         begin = x
 
     i = vari
     j = varj
